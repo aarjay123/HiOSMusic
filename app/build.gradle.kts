@@ -54,45 +54,19 @@ android {
             reset()
 
             // all common abis
-            // include("x86_64", "x86", "armeabi-v7a", "arm64-v8a") // universal
-            isUniversalApk = false
+             include("x86_64", "x86", "armeabi-v7a", "arm64-v8a") // universal
+            isUniversalApk = true
         }
     }
 
-    flavorDimensions.add("abi")
-
-    productFlavors {
-        // universal
-        create("universal") {
-            isDefault = true
-            dimension = "abi"
-            ndk {
-                abiFilters.addAll(listOf("x86", "x86_64", "armeabi-v7a", "arm64-v8a"))
-            }
-        }
-        // arm64 only
-        create("arm64") {
-            dimension = "abi"
-            ndk {
-                abiFilters.add("arm64-v8a")
-            }
-        }
-        // x86_64 only
-        create("x86_64") {
-            dimension = "abi"
-            ndk {
-                abiFilters.add("x86_64")
-            }
-        }
-    }
 
     applicationVariants.all {
         val variant = this
         variant.outputs
             .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
             .forEach { output ->
-                val outputFileName = "OuterTune-${variant.versionName}-${variant.baseName}.apk"
-                output.outputFileName = outputFileName
+                val outputFileName = "-${variant.versionName}-${variant.baseName}.apk"
+                output.outputFileName = output.outputFileName.substringBeforeLast(".apk") + outputFileName
             }
     }
 
@@ -200,4 +174,7 @@ dependencies {
 //    implementation(libs.taglib) // jitpack
     implementation(files("../prebuilt/taglib-1.0.1-outertune-universal-release.aar")) // prebuilt
 //    implementation("com.kyant:taglib") // custom
+
+
+    implementation(project(":ffMetadataEx")) // FFMpeg extractor
 }

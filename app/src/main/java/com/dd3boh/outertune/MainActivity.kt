@@ -866,7 +866,7 @@ class MainActivity : ComponentActivity() {
                                             .offset(y = 100.dp)
                                     ) {
                                         Text(
-                                            text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) | ${BuildConfig.FLAVOR}",
+                                            text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
                                             style = MaterialTheme.typography.bodySmall,
                                             color = debugColour
                                         )

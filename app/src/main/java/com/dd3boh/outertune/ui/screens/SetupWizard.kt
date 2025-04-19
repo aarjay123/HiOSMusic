@@ -636,7 +636,7 @@ fun SetupWizard(
 
                         Row {
                             Text(
-                                text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE}) | ${BuildConfig.FLAVOR}",
+                                text = "${BuildConfig.VERSION_NAME} (${BuildConfig.VERSION_CODE})",
                                 style = MaterialTheme.typography.titleMedium,
                                 color = MaterialTheme.colorScheme.secondary
                             )
