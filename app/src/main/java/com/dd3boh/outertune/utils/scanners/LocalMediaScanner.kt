@@ -58,9 +58,8 @@ import java.util.Locale
 class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
     private val TAG = LocalMediaScanner::class.simpleName.toString()
     private var advancedScannerImpl: MetadataScanner = when (scannerImpl) {
-//        ScannerImpl.TAGLIB -> TagLibScanner()
-//        ScannerImpl.FFMPEG_EXT -> FFMpegScanner(context)
-        else -> TagLibScanner()
+        ScannerImpl.TAGLIB -> TagLibScanner()
+        ScannerImpl.FFMPEG_EXT -> FFMpegScanner()
     }
 
     init {
@@ -82,7 +81,7 @@ class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
             testPlayer.release()
 
             // decide which scanner to use
-            val ffmpegData = if (false && advancedScannerImpl !is TagLibScanner) {
+            val ffmpegData = if (advancedScannerImpl is FFMpegScanner) {
                 advancedScannerImpl.getAllMetadataFromPath(path)
             } else if (advancedScannerImpl is TagLibScanner) {
                 advancedScannerImpl.getAllMetadataFromFile(File(path))
@@ -146,6 +145,7 @@ class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
         val newDirectoryStructure = DirectoryTree(STORAGE_ROOT)
         Log.i(TAG, "------------ SCAN: Starting Full Scanner ------------")
         scannerShowLoading.value = true
+        scannerProgressProbe = 0
 
         val scannerJobs = ArrayList<Deferred<SongTempData?>>()
         runBlocking {
@@ -299,8 +299,8 @@ class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
             if (SCANNER_DEBUG && runs % 20 == 0) {
                 Log.d(TAG, "------------ SYNC: Local Library Sync: $runs/${finalSongs.size} processed ------------")
             }
-            if (runs % 5 == 0) {
-                scannerProgressCurrent.value += 5
+            if (runs % 20 == 0) {
+                scannerProgressCurrent.value += 20
             }
 
             if (scannerRequestCancel) {
@@ -824,24 +824,9 @@ class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
          * Trust me bro, it should never be null
          */
         fun getScanner(context: Context, scannerImpl: ScannerImpl): LocalMediaScanner {
-            /*
-            if the FFmpeg extractor is suddenly removed and a scan is ran, reset to taglib, disable auto scanner.
-            we don't want to run the taglib scanner fallback if the user explicitly selected FFmpeg as differences
-            can muck with the song detection. Throw the error to the ui where it can be handled there
-             */
-            if (scannerImpl != ScannerImpl.TAGLIB) {
-                runBlocking {
-                    context.dataStore.edit { settings ->
-                        settings[ScannerImplKey] = ScannerImpl.TAGLIB.toString()
-                        settings[AutomaticScannerKey] = false
-                    }
-                }
-                throw ScannerAbortException("FFmpeg extractor was selected, but the package is no longer available. Reset to taglib scanner and disabled automatic scanning")
-            }
 
             if (localScanner == null) {
-                localScanner = LocalMediaScanner(context, ScannerImpl.TAGLIB)
-//                localScanner = LocalMediaScanner(context, if (isFFmpegInstalled) scannerImpl else ScannerImpl.TAGLIB)
+                localScanner = LocalMediaScanner(context, scannerImpl)
                 scannerProgressTotal.value = 0
                 scannerProgressCurrent.value = -1
                 scannerProgressProbe = 0
@@ -857,6 +842,7 @@ class LocalMediaScanner(val context: Context, val scannerImpl: ScannerImpl) {
             scannerFinished.value = false
             scannerRequestCancel = false
             scannerProgressTotal.value = -1
+            scannerProgressProbe = -1
             scannerProgressCurrent.value = -1
             scannerProgressProbe = -1
 
