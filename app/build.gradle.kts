@@ -83,10 +83,6 @@ android {
         jvmTarget = "17"
     }
 
-    tasks.withType<KotlinCompile> {
-        exclude("**/*FFMpegScanner.kt")
-    }
-
     // for IzzyOnDroid
     dependenciesInfo {
         // Disables dependency metadata when building APKs.

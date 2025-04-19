@@ -77,3 +77,6 @@
     #public static int w(...);
     #public static int e(...);
 }
+
+## ffMetadataEx
+-keep class wah.mikooomich.ffMetadataEx.** { *; }
