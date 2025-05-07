@@ -3,6 +3,7 @@ package com.dd3boh.outertune.ui.screens
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.only
@@ -16,6 +17,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -203,6 +205,7 @@ fun StatsScreen(
                     contentDescription = null
                 )
             }
-        }
+        },
+        windowInsets = TopAppBarDefaults.windowInsets.add(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Start))
     )
 }

@@ -12,6 +12,9 @@ package com.dd3boh.outertune.ui.screens.settings
 import android.os.Build
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -26,6 +29,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -133,6 +137,7 @@ fun AppearanceSettings(
                 )
             }
         },
+        windowInsets = TopAppBarDefaults.windowInsets.add(LocalPlayerAwareWindowInsets.current.only(WindowInsetsSides.Start)),
         scrollBehavior = scrollBehavior
     )
 }
