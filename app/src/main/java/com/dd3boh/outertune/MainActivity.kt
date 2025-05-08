@@ -23,7 +23,6 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
@@ -43,13 +42,13 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.add
+import androidx.compose.foundation.layout.displayCutout
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -324,7 +323,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
-//        enableEdgeToEdge() // TODO: figure out why causes navbar background to be visible in player
 
         activityLauncher = ActivityLauncherHelper(this)
 
@@ -481,6 +479,7 @@ class MainActivity : ComponentActivity() {
                     val density = LocalDensity.current
                     val windowsInsets = WindowInsets.systemBars
                     val bottomInset = with(density) { windowsInsets.getBottom(density).toDp() }
+                    val cutoutInsets = WindowInsets.displayCutout
 
                     val navController = rememberNavController()
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -659,6 +658,7 @@ class MainActivity : ComponentActivity() {
                             } else {
                                 windowsInsets
                                     .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
+                                    .add(cutoutInsets.only(WindowInsetsSides.Start))
                                     .add(WindowInsets(left = NavigationBarHeight, top = AppBarHeight, bottom = bottom))
                             }
                         }
@@ -1138,7 +1138,7 @@ class MainActivity : ComponentActivity() {
                                     focusRequester = searchBarFocusRequester,
                                     modifier = Modifier
                                         .align(Alignment.TopCenter)
-                                        .padding(start = if (useRail && shouldShowNavigationRail) NavigationBarHeight else 0.dp),
+                                        .windowInsetsPadding(playerAwareWindowInsets.only(WindowInsetsSides.Start))
                                 ) {
                                     Crossfade(
                                         targetState = searchSource,
@@ -1210,76 +1210,76 @@ class MainActivity : ComponentActivity() {
 
 
                             if (useRail && shouldShowNavigationRail) {
-                                Column(
+                                NavigationRail(
+                                    windowInsets = playerAwareWindowInsets
+                                        .only(WindowInsetsSides.Bottom)
+                                        .add(windowsInsets.only(WindowInsetsSides.Start))
+                                        .add(cutoutInsets.only(WindowInsetsSides.Start)),
+                                    header = {
+                                        Spacer(Modifier.height(8.dp))
+                                        Image(
+                                            modifier = Modifier
+                                                .size(36.dp)
+                                                .padding(start = 8.dp),
+                                            painter = painterResource(R.drawable.small_icon),
+                                            contentDescription = null
+                                        )
+                                    },
                                     modifier = Modifier
                                         .align(Alignment.BottomStart)
-                                        .windowInsetsPadding(playerAwareWindowInsets.only(WindowInsetsSides.Bottom))
+//                                        .fillMaxHeight() // for usability, should align bottom
                                         .verticalScroll(rememberScrollState())
                                 ) {
-                                    NavigationRail(
-//                                        windowInsets = WindowInsets.safeDrawing,
-                                        header = {
-                                            Spacer(Modifier.height(8.dp))
-                                            Image(
-                                                modifier = Modifier
-                                                    .size(36.dp)
-                                                    .padding(start = 8.dp),
-                                                painter = painterResource(R.drawable.small_icon),
-                                                contentDescription = null
-                                            )
-                                        },
-                                    ) {
-                                        navigationItems.fastForEach { screen ->
-                                            NavigationRailItem(
-                                                selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == screen.route } == true,
-                                                icon = {
-                                                    Icon(
-                                                        screen.icon,
-                                                        contentDescription = null
+                                    navigationItems.fastForEach { screen ->
+                                        NavigationRailItem(
+                                            selected = navBackStackEntry?.destination?.hierarchy?.any { it.route == screen.route } == true,
+                                            icon = {
+                                                Icon(
+                                                    screen.icon,
+                                                    contentDescription = null
+                                                )
+                                            },
+                                            label = {
+                                                if (!slimNav) {
+                                                    Text(
+                                                        text = stringResource(screen.titleId),
+                                                        maxLines = 1,
+                                                        overflow = TextOverflow.Ellipsis
                                                     )
-                                                },
-                                                label = {
-                                                    if (!slimNav) {
-                                                        Text(
-                                                            text = stringResource(screen.titleId),
-                                                            maxLines = 1,
-                                                            overflow = TextOverflow.Ellipsis
-                                                        )
-                                                    }
-                                                },
-                                                onClick = {
-                                                    if (playerBottomSheetState.isExpanded) {
-                                                        playerBottomSheetState.collapseSoft()
-                                                    }
-
-                                                    if (navBackStackEntry?.destination?.hierarchy?.any { it.route == screen.route } == true) {
-                                                        navBackStackEntry?.savedStateHandle?.set(
-                                                            "scrollToTop",
-                                                            true
-                                                        )
-
-                                                        coroutineScope.launch {
-                                                            searchBarScrollBehavior.state.resetHeightOffset()
-                                                        }
-                                                    } else {
-                                                        navController.navigate(screen.route) {
-                                                            popUpTo(navController.graph.startDestinationId) {
-                                                                saveState = true
-                                                            }
-
-                                                            launchSingleTop = true
-                                                            restoreState = true
-                                                        }
-
-                                                        while (navController.currentDestination?.route.let { it != null && it != screen.route }) {
-                                                            navController.popBackStack()
-                                                        }
-                                                    }
-
-                                                    haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
                                                 }
-                                            )
-                                        }
+                                            },
+                                            onClick = {
+                                                if (playerBottomSheetState.isExpanded) {
+                                                    playerBottomSheetState.collapseSoft()
+                                                }
+
+                                                if (navBackStackEntry?.destination?.hierarchy?.any { it.route == screen.route } == true) {
+                                                    navBackStackEntry?.savedStateHandle?.set(
+                                                        "scrollToTop",
+                                                        true
+                                                    )
+
+                                                    coroutineScope.launch {
+                                                        searchBarScrollBehavior.state.resetHeightOffset()
+                                                    }
+                                                } else {
+                                                    navController.navigate(screen.route) {
+                                                        popUpTo(navController.graph.startDestinationId) {
+                                                            saveState = true
+                                                        }
+
+                                                        launchSingleTop = true
+                                                        restoreState = true
+                                                    }
+
+                                                    while (navController.currentDestination?.route.let { it != null && it != screen.route }) {
+                                                        navController.popBackStack()
+                                                    }
+                                                }
+
+                                                haptic.performHapticFeedback(HapticFeedbackType.ContextClick)
+                                            }
+                                        )
                                     }
                                 }
                             }
