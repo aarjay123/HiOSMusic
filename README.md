@@ -4,7 +4,7 @@
 
 The new music app by The Highland Cafe™.
 
-[![Latest release](https://img.shields.io/github/v/release/hiosdev/HiOSMusic?include_prereleases)](https://github.com/aarjay123/hiosmusic/releases)
+[![Latest release](https://img.shields.io/github/v/release/aarjay123/HiOSMusic?include_prereleases)](https://github.com/aarjay123/hiosmusic/releases)
 
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" alt="Get it on GitHub" height="80">](https://github.com/aarjay123/hiosmusic/releases/latest)
 
@@ -28,13 +28,13 @@ The new music app by The Highland Cafe™.
 ## Screenshots
 
 <p float="left">
-  <img src="https://raw.githubusercontent.com/hiosdev/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/01.png" width="200" />
-  <img src="https://raw.githubusercontent.com/hiosdev/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/02.png" width="200" />
-  <img src="https://raw.githubusercontent.com/hiosdev/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/03.png" width="200" />
+  <img src="https://raw.githubusercontent.com/aarjay123/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/01.png" width="200" />
+  <img src="https://raw.githubusercontent.com/aarjay123/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/02.png" width="200" />
+  <img src="https://raw.githubusercontent.com/aarjay123/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/03.png" width="200" />
 </p>
 <p float="left">
-  <img src="https://raw.githubusercontent.com/hiosdev/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/04.png" width="200" />
-  <img src="https://raw.githubusercontent.com/hiosdev/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/05.png" width="200" />
+  <img src="https://raw.githubusercontent.com/aarjay123/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/04.png" width="200" />
+  <img src="https://raw.githubusercontent.com/aarjay123/hiosmusic/dev/fastlane/metadata/android/en-US/images/phoneScreenshots/05.png" width="200" />
 </p>
 
 > **Warning**

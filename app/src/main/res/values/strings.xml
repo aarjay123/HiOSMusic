@@ -334,4 +334,53 @@ We recycle translations from upstream, they are pulled periodically. -->
     <string name="new_version_available">New version available</string>
     <string name="translation_models">Translation Models</string>
     <string name="clear_translation_models">Clear translation models</string>
+
+    <!-- Updates Preferences -->
+    <string name="updates" translatable="false">Updates</string>
+    <string name="update_category">Update HiOSMusic</string>
+    <string name="updates_title">Manually Update HiOSMusic</string>
+    <string name="updates_summary">Download the latest app APK installer file.\n\n1. Tap here, tap \'Download Anyway\' on the popup, since the HiOSMusic is safe.\n2. Allow your browser to \'Install Unknown Apps\', select \'Open\' and finally \'update\'.\n\nThis Version: 2.0.2</string>
+    <string name="updates_description">Tap the button below to download the latest HiOSMobile version to your Downloads folder.</string>
+    <string name="updates_button">Download HiOSMobile File</string>
+
+    <string name="updates_prerelease_title">Download Unstable Version</string>
+    <string name="updates_prerelease_summary">Download the latest HiOSMobile pre-release version.\n\nOn the releases page on GitHub, find one with the \'pre-release\' tag.\n\nCAUTION: Pre-releases can be unstable!</string>
+
+    <string name="autoupdate_title">Auto-Update the HiOSMobile</string>
+    <string name="autoupdate_summary">Learn how to update the HiOSMobile automatically on our website.</string>
+
+    <string name="notifications_category">Update notifications and more</string>
+
+    <string name="notifications_title">Update Notifications</string>
+    <string name="notifications_summary">Join our WhatsApp Channel to get notified every time we update the HiOSMobile.</string>
+
+    <string name="whatsnew_title">What\'s New?</string>
+
+    <!-- URLs -->
+    <string name="autoupdate_url">https://sites.google.com/view/hios-by-thc/download/autoupdate</string>
+    <string name="whatsnew_url" translatable="false">https://sites.google.com/view/hios-by-thc/download-hiosmusic</string>
+    <string name="notifications_url" translatable="false">https://whatsapp.com/channel/0029Va8U5lXISTkDAhk4bj3J</string>
+    <string name="updates_url" translatable="false">https://github.com/aarjay123/hiosmusic/releases/latest</string>
+    <string name="hiosweather_url" translatable="false">https://sites.google.com/view/hios-by-thc/hiosweather#h.rynyo42t0yud</string>
+    <string name="hiosmobile_url" translatable="false">https://hienterprises.github.io/hiosmobile/download</string>
+    <string name="hiosdesktop_url">https://sites.google.com/view/hios-by-thc/hiosdesktop</string>
+    <string name="hienterprises_url" translatable="false">https://hienterprises.github.io/</string>
+    <string name="support_url" translatable="false">https://sites.google.com/view/thehighlandcafe/customer-support</string>
+
+    <string name="facebook_url">https://www.facebook.com/profile.php?id=100095224335357</string>
+    <string name="facebook_nuggetdev_url">https://www.facebook.com/profile.php?id=61558122144435</string>
+
+    <string name="instagram_url">https://www.instagram.com/thehighlandcafe/</string>
+    <string name="instagram_nuggetdev_url">https://www.instagram.com/nuggetdev/</string>
+
+    <string name="threads_url">https://www.threads.net/@thehighlandcafe</string>
+    <string name="thehighlandcafe_url">https://hienterprises.github.io/hicafe/home</string>
+    <string name="nuggetdev_url">https://sites.google.com/view/nuggetdev</string>
+    <string name="hios_url">https://sites.google.com/view/hios-by-thc</string>
+    <string name="hiossocial_url">https://sites.google.com/view/hios-by-thc/hisocial</string>
+    <string name="privacypolicy_url">https://sites.google.com/view/hios-by-thc/privacy-policy</string>
+    <string name="github_release_url">https://github.com/aarjay123/hiosmusic/releases/latest</string>
+    <string name="github_prerelease_url">https://github.com/aarjay123/hiosmusic/releases</string>
+    <string name="direct_download_url">https://github.com/aarjay123/hiosmusic/releases/latest/download/hiosmusic.apk</string>
+    <string name="hirewards_url">https://sites.google.com/view/hirewards#h.j6t1hqgf8fxc</string>
 </resources>

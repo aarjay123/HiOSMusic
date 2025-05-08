@@ -13,6 +13,7 @@ import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Typography
 import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.runtime.Composable
@@ -23,13 +24,73 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.palette.graphics.Palette
 import com.google.material.color.dynamiccolor.DynamicScheme
 import com.google.material.color.hct.Hct
 import com.google.material.color.scheme.SchemeTonalSpot
 import com.google.material.color.score.Score
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
+
+import com.dd3boh.outertune.R
 
 val DefaultThemeColor = Color(0xFFED5564)
+
+val customFontFamily = FontFamily(
+    Font(R.font.outfit_regular, FontWeight.Normal)
+)
+
+val AppTypography = Typography(
+    bodyLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 16.sp
+    ),
+    bodyMedium = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp
+    ),
+    bodySmall = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 12.sp
+    ),
+    titleLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 22.sp
+    ),
+    titleMedium = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 18.sp
+    ),
+    titleSmall = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Bold,
+        fontSize = 16.sp
+    ),
+    labelLarge = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 14.sp
+    ),
+    labelMedium = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp
+    ),
+    labelSmall = TextStyle(
+        fontFamily = customFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 11.sp
+    )
+    // Add other text styles as needed
+)
 
 @Composable
 fun OuterTuneTheme(
@@ -52,7 +113,7 @@ fun OuterTuneTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = MaterialTheme.typography,
+        typography = AppTypography,
         content = content
     )
 }

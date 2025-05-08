@@ -16,11 +16,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.dd3boh.outertune"
+        applicationId = "com.nugget.music"
         minSdk = 26
         targetSdk = 35
-        versionCode = 53
-        versionName = "0.8.1"
+        versionCode = 4
+        versionName = "2.1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -91,7 +91,7 @@ android {
         variant.outputs
             .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
             .forEach { output ->
-                val outputFileName = "OuterTune-${variant.versionName}-${variant.baseName}.apk"
+                val outputFileName = "HiOSMusic-${variant.versionName}-${variant.baseName}.apk"
                 output.outputFileName = outputFileName
             }
     }
